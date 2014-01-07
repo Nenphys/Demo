@@ -5,5 +5,6 @@
     <string name="balance">Balance</string>
     <string name="places">Places/Events</string>
     <string name="check">NFC Check</string>
+    <string name ="mensaje">Pasa tu celular por la marca NFC de aqui</string>
 
 </resources>
