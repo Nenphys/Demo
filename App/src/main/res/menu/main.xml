@@ -6,10 +6,10 @@
     <item android:id="@+id/balance"
         android:title="@string/balance"
         app:showAsAction="always"
-        android:icon="@drawable/abc_ic_voice_search"/>
+        android:icon="@android:drawable/btn_star"/>
 
-    <!--<item android:id="@+id/check"-->
-        <!--android:title="@string/check"-->
-        <!--app:showAsAction="always|ifRoom"-->
-        <!--android:icon="@drawable/abc_ic_menu_share_holo_dark"/>-->
+    <item android:id="@+id/logout"
+        android:title="@string/login"
+        app:showAsAction="always|ifRoom"
+        android:icon="@android:drawable/ic_dialog_alert"/>
 </menu>

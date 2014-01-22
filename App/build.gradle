@@ -34,5 +34,7 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:+'
+    compile files('C:/Users/Chapo/AndroidProjects/Demo/.idea/libraries/backendless.jar')
+
 }

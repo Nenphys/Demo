@@ -2,9 +2,12 @@ package com.aqui;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -12,34 +15,38 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewAnimator;
+
+
+
 
 /**
  * Created by Chapo on 12/11/13.
  */
-public class check extends Activity{
+public class CheckNFC extends Activity{
+    //NFC
     private NfcAdapter mNfcAdapter;
     private IntentFilter[] mNdefExchangeFilters;
     private PendingIntent mNfcPendingIntent;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_check);
+
+
           /* NFC */
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNfcPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
-                check.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
+                CheckNFC.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP), 0);
+
+
 
         IntentFilter discovery = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
         mNdefExchangeFilters = new IntentFilter[] { discovery };
 
-
-    }
+    }//OnCreate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,7 +60,7 @@ public class check extends Activity{
         Intent i;
         switch (item.getItemId()) {
             case R.id.balance:
-                i = new Intent(this,balance.class);
+                i = new Intent(this,Balance.class);
                 startActivity(i);
                 break;
         }
@@ -100,12 +107,19 @@ public class check extends Activity{
                     }
                     TextView test = (TextView)findViewById(R.id.textView2);
                     test.setText(result);
+
+                    //Location
+                    LocationManager mLocationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                    LocationListener mLocationListener = new Posicion();
+                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30, 30, mLocationListener);
+                    //mLocationManager.removeUpdates(mLocationListener);
                 }
             } else {
                 Toast.makeText(this, "The NFC tag appears to be empty", Toast.LENGTH_SHORT).show();
             }
         }
     }
+    //NFC
     private void nfcCheck() {
         Log.i("NFC Intent","nfcCheck");
         if(mNfcAdapter != null) {
@@ -115,4 +129,23 @@ public class check extends Activity{
             Toast.makeText(this, "Sorry, No NFC Adapter found.", Toast.LENGTH_SHORT).show();
         }
     }
-}
+  //Location
+    public class Posicion implements LocationListener{
+        public void onLocationChanged(Location loc){
+
+            TextView latLong =(TextView)findViewById(R.id.latlog);
+
+            latLong.setText("Latitud = "+loc.getLatitude()+" "+"Longitud = "+loc.getLongitude());
+        }
+        public void onProviderDisabled(String provider){
+            Toast.makeText( getApplicationContext(),"Gps Desactivado",Toast.LENGTH_SHORT ).show();
+        }
+        public void onProviderEnabled(String provider){
+            Toast.makeText( getApplicationContext(),"Gps Activo",Toast.LENGTH_SHORT ).show();
+        }
+        public void onStatusChanged(String provider, int status, Bundle extras){
+        }
+    }
+  }//Activity
+
+

@@ -7,17 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 /**
- * Created by Chapo on 12/11/13.
+ * Created by Chapo on 1/13/14.
  */
-public class Balance extends Activity{
+public class CheckQR extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.balance);
-
-
+        setContentView(R.layout.qr_check);
+        //TODO terminar la clase
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -37,4 +37,5 @@ public class Balance extends Activity{
 
         return super.onOptionsItemSelected(item);
     }
+
 }
