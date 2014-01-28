@@ -3,6 +3,7 @@ package com.aqui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,13 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.UserService;
 import com.backendless.async.callback.AsyncCallback;
-import com.backendless.exceptions.BackendlessException;
 import com.backendless.exceptions.BackendlessFault;
 
 import java.util.ArrayList;
@@ -40,10 +39,12 @@ public class MainActivity extends Activity {
 
         //Backendless key's
         String appVersion = "v1";
-        Backendless.initApp(this, BACKENDLESS_KEY, APLICATION_SECRET_KEY, appVersion);
 
+        Backendless.initApp(this, BACKENDLESS_KEY, APLICATION_SECRET_KEY, appVersion);
         //Login
-        login = new Log_In(MainActivity.this);
+      //  login = new Log_In(MainActivity.this);
+
+
 
         //view de lugares y seleccion de modo de registro.
         try{
@@ -99,7 +100,6 @@ public class MainActivity extends Activity {
         super.onPause();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,13 +121,13 @@ public class MainActivity extends Activity {
                     public void handleResponse( Void response )
                     {
                         // user has been logged out.
-                        Log.i("kkk","LogOut!!");
+                        Log.i("LogOut","LogOut!!");
                     }
 
                     public void handleFault( BackendlessFault fault )
                     {
                         // something went wrong and logout failed, to get the error code call fault.getCode()
-                        Log.i("kkk","LogOut!!"+fault.toString());
+                        Log.i("LogOut","LogOut!!"+fault.toString());
                     }
                 });
         }
